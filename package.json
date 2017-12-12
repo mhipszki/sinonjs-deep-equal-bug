@@ -1,0 +1,10 @@
+{
+  "name": "sinonjs-deep-equal-bug",
+  "version": "1.0.0",
+  "main": "test.js",
+  "license": "MIT",
+  "dependencies": {
+    "clear-module": "^2.1.0",
+    "sinon": "^4.1.3"
+  }
+}
