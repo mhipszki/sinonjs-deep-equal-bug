@@ -28,7 +28,9 @@ When sinon.js is loaded via a `require('sinon');` call in Node.js then its utili
 * `lib/sinon/call.js`
 * `lib/sinon/spy.js`
 
-The module `deep-equal.js` has a feature in its exported `deepEqual` method to determine if a comparable entity is a DOM node / element or not via its private `isElement` and `isDOMNode` methods.
+See [this part of the code](https://github.com/sinonjs/sinon/blob/bde5b51f57c84ffbdb228aa54458af647770e305/lib/sinon.js#L5) for details and follow through [this part](https://github.com/sinonjs/sinon/blob/bde5b51f57c84ffbdb228aa54458af647770e305/lib/sinon/match.js#L3).
+
+The module `deep-equal.js` has a [feature](https://github.com/sinonjs/sinon/blob/3dbac22293996db79931daf4595d69bcf5c5243b/lib/sinon/util/core/deep-equal.js#L28) in its exported `deepEqual` method to determine if a comparable entity is a DOM node / element or not via its private `isElement` and `isDOMNode` methods.
 
 ```javascript
 var div = typeof document !== 'undefined' && document.createElement('div');
@@ -63,10 +65,10 @@ The actual problem lies in the `var div = ...` line which executes immediately w
 
 The included test cases try to require `sinon` to test it in different contexts:
 
-1. 'document' property does not exist in global scope
-2. 'document' property exists in global scope and has 'createElement' method on it (like 'window.document' does in a browser)
-3. 'document' property exists in global scope but does not have 'createElement' method on it
-4. 'document' property exists in global scope but it is not an object
+1. `document` property does not exist in global scope
+2. `document` property exists in global scope and has `createElement` method on it (like `window.document` does in a browser)
+3. `document` property exists in global scope but does not have `createElement` method on it
+4. `document` property exists in global scope but it is not an object
 
 **NOTE**: interestingly it is not the `deep-equal.js` module that makes sinon.js break in the first place but the library [samsam](https://github.com/busterjs/samsam) which is in its dependency chain:
 
