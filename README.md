@@ -2,6 +2,22 @@
 
 This repo demonstrates via runnable tests that [sinon.js](https://github.com/sinonjs/sinon) `v4.x` breaks immediately when loaded and the global scope has a `document` property but without `createElement` method or not being an object.
 
+## How to execute tests
+
+Run `yarn` to install with locked in dependencies:
+
+```
+yarn
+```
+
+then run the tests via Node.js
+
+```
+node test.js
+```
+
+> NOTE: tested on Node v8.x LTS
+
 ## Reason
 
 When sinon.js is loaded via a `require('sinon');` call in Node.js then its utility module `lib/sinon/util/core/deep-equal.js` is loaded immediately via several of its core API modules:
@@ -48,13 +64,11 @@ The actual problem lies in the `var div = ...` line which executes immediately w
 The included test cases try to require `sinon` to test it in different contexts:
 
 1. 'document' property does not exist in global scope
+2. 'document' property exists in global scope and has 'createElement' method on it (like 'window.document' does in a browser)
+3. 'document' property exists in global scope but does not have 'createElement' method on it
+4. 'document' property exists in global scope but it is not an object
 
-* 'document' property exists in global scope and has 'createElement' method on it (like 'window.document' does in a browser)
-* 'document' property exists in global scope but does not have 'createElement' method on it
-* 'document' property exists in global scope but it is not an object
-
-**NOTE**: interestingly it is not actually the `deep-equal.js` module that makes sinon.js break
-but the library `samsam` which is in its dependency chain:
+**NOTE**: interestingly it is not the `deep-equal.js` module that makes sinon.js break in the first place but the library [samsam](https://github.com/busterjs/samsam) which is in its dependency chain:
 
 ```
 sinon.js -> formatio -> samsam
@@ -65,6 +79,8 @@ or
 ```
 sinon.js -> nise -> formatio -> samsam
 ```
+
+(see package dependencies in `yarn.lock`)
 
 The code in `samsam` has an almost identical copy of the `isElement` method in `deep-equal.js`:
 
