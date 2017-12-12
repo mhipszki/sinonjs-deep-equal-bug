@@ -1,6 +1,6 @@
 # sinon.js deep equal bug
 
-This repo demonstrates via executable test cases that [sinon.js](https://github.com/sinonjs/sinon) `v4.x` breaks immediately when loaded and the global scope has a `document` property but without `createElement` method or not being an object.
+This repo demonstrates via executable test cases that [sinon.js](https://github.com/sinonjs/sinon) `v4.x` breaks under _Node.js_ immediately when loaded and the global scope has a `document` property but without `createElement` method or not being an object.
 
 ## How to execute tests
 
